@@ -4,6 +4,7 @@
   "scripts": {
     "start": "node api/index.js",
     "dev": "nodemon api/index.js",
+    "build": "cd client && npm install && npm run build",
     "install-all": "npm install && cd client && npm install"
   },
   "dependencies": {
