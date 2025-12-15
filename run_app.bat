@@ -4,7 +4,7 @@ echo    A iniciar Deep Scout Pro (Ambiente de Teste)
 echo ==========================================
 
 echo 1. A iniciar o Servidor (Backend)...
-start "Deep Scout Server" cmd /k "cd server && npm run dev"
+start "Deep Scout Server" cmd /k "node api/index.js"
 
 echo 2. A iniciar o Cliente (Frontend)...
 start "Deep Scout Client" cmd /k "cd client && npm run dev"
