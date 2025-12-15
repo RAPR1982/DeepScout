@@ -24,7 +24,16 @@ export const AuthProvider = ({ children }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
-            const data = await res.json();
+
+            const contentType = res.headers.get("content-type");
+            let data;
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                data = await res.json();
+            } else {
+                const text = await res.text();
+                console.error("Non-JSON response:", text);
+                return { success: false, message: `Server Error (${res.status}): ${text.substring(0, 50)}...` };
+            }
 
             if (data.success) {
                 setUser(data.user);
@@ -35,7 +44,7 @@ export const AuthProvider = ({ children }) => {
             }
         } catch (error) {
             console.error("Login Error", error);
-            return { success: false, message: "Network error" };
+            return { success: false, message: `Request Failed: ${error.message}` };
         }
     };
 
